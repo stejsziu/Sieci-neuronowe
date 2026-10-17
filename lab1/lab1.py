@@ -1,6 +1,6 @@
-# import numpy as np
-import cupy as cp
-#import sympy as sp
+import numpy as np
+#import cupy as np
+import sympy as sp
 from statistics import mean
 import string
 import random
@@ -90,7 +90,6 @@ print("Lista liczb powyżej średniej:", lista_powyzej_sredniej)
 
 
 # ------- Zad 7 ----------------------------------------------------
-
 def analizuj_tekst(tekst):
     tekst = tekst.lower()
 
@@ -114,9 +113,7 @@ print(analizuj_tekst(testowy_tekst))
 
 
 # ------- Zad 8 ----------------------------------------------------
-
 tablica = np.random.randint(0, 101, size=20)
-
 print("1. Oryginalna tablica:")
 print(tablica)
 
@@ -141,9 +138,25 @@ print(posortowana)
 tablica_znormalizowana = (tablica - x_min) / (x_max - x_min)
 print("\n6. Tablica znormalizowana (zaokrąglona do 2 miejsc po przecinku):")
 print(np.round(tablica_znormalizowana, 2))
-
+print()
+print()
+print()
 
 # ------- Zad 9 ----------------------------------------------------
+def losowa_macierz(rows, cols, max_val):
+    matrix = []
+    for i in range(rows):
+        row = np.random.randint(0, max_val + 1, size=cols)
+        matrix.append(row)
+    print(matrix)    
+    print(np.array(matrix))
+    return np.array(matrix)
+
+#sprawdzenie
+A = losowa_macierz(4, 5, 10)
+B = losowa_macierz(5, 8, 6)
+print(A)
+print(B)
 
 
 # ------- Zad 10 ---------------------------------------------------
