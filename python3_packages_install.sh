@@ -26,7 +26,7 @@ fi
 
 source venv/bin/activate
 # Install required packages using the correct pip path
-venv/bin/pip install numpy cupy sympy matplotlib statistics
+venv/bin/pip install numpy sympy matplotlib statistics # cupy
 pip install cupy-cuda12x
 
 echo "Installation complete!"

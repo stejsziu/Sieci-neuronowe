@@ -153,10 +153,14 @@ def losowa_macierz(rows, cols, max_val):
     return np.array(matrix)
 
 #sprawdzenie
-A = losowa_macierz(4, 5, 10)
-B = losowa_macierz(5, 8, 6)
+A = losowa_macierz(3, 4, 10)
+B = losowa_macierz(4, 2, 6)
 print(A)
 print(B)
+
+def transpose(matrix)
+    
+    
 
 
 # ------- Zad 10 ---------------------------------------------------
