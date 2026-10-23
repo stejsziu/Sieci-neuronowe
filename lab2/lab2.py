@@ -4,74 +4,81 @@ import matplotlib.pyplot as plt
 
 
 # ======================== ZAD 1 ========================
+def dane_wejsciowe(inputs, weights):
+    layer = {
+        'activation_potential': np.array([np.matmul(weights, inputs)]),
+        'output': None
+    }
+    print(layer)
+    return layer
+
+# ******** sprawdzenie *********
 np.random.seed(42)
 input_size = 10
-
 inputs = [np.random.randn() for i in range(input_size)]
-weight = [np.random.randn() for i in range(input_size)]
+weights = [np.random.randn() for i in range(input_size)]
 
-layer = {
-    'activation_potential': np.matmul(weights, inputs),
-    'output': None
-}
-
-print(layer)
-
+layer = dane_wejsciowe(inputs, weights)
+print("Struktura słownika:", layer)
+print("Kształt 'activation_potential':", layer['activation_potential'].shape)
+print("\n")
 
 # ======================== ZAD 2 ========================
-# ---- LINEAR ----
-def linear_log(activation_potential, output, derivative = False):
+# ------- LINEAR ----------
+def linear(activation_potential, output, derivative = False):
     if not derivative:
         return activation_potential
     else:
         return np.ones_like(activation_potential)
 
-activation_potential = layer['activation_potential']
-layer['output'] = linear_log(activation_potential, 0)
-linear_log(layer)
-
-# ---- SIGMOID ----
-def sigmoid_log(activation_potential, output, derivative = False):
+# ------- SIGMOID ----------
+def sigmoid(activation_potential, output, derivative = False):
+    s =  1. / ( 1. + np.exp(-activation_potential) )
     if not derivative:
-        return 1 / (1 + exp(-activation_potential) )
+        return s
     else:
-        return (1 - exp(-activation_potential)) / (1 + exp(-activation_potential))**2
+        return s * (1 - s)
 
-activation_potential = layer['activation_potential']
-layer['output'] = sigmoid_log(activation_potential, 0)
-sigmoid_log(layer)
-
-# ---- TANH ----
-def tanh_log(activation_potential, output, derivative = False):
+# ------- TANH ----------
+def tanh(activation_potential, output, derivative = False):
+    s = (np.exp(activation_potential) - np.exp(-activation_potential)) / (np.exp(activation_potential) + np.exp(-activation_potential))
     if not derivative:
-        return (exp(activation_potential) - exp(activation_potential)) / (exp(activation_potential)- exp(activation_potential))
+        return s
     else:
-        return 1 - ( (exp(activation_potential) - exp(activation_potential)) / (exp(activation_potential)- exp(activation_potential)) )**2
+        return 1 - np.square(s)
 
-activation_potential = layer['activation_potential']
-layer['output'] = tanh_log(activation_potential, 0)
-tanh_log(layer)
-
-# ---- ReLU ----
-#ReLU
+# ------- ReLU ----------
 def ReLU(activation_potential, output, derivative = False):
     if not derivative:
-        return max(0, activation_potential)
+        return np.maximum(0, activation_potential)
     else:
-        if activation_potential > 0: return 1;
-        else: return 0;
+        return np.where(activation_potential > 0, 1., 0.)
 
-activation_potential = layer['activation_potential']
-layer['output'] = ReLU_log(activation_potential, 0)
-ReLU(layer)
+# --- sprawdzenie ---
+funkcje = [('linear', linear), ('sigmoid', sigmoid), ('tanh', tanh), ('ReLU', ReLU)]
+
+for nazwa, fcn in funkcje:
+    layer = dane_wejsciowe(inputs, weights)
+
+    # Forward pass (obliczenie wyjścia)
+    layer['output'] = fcn(layer['activation_potential'], None, derivative=False)
+    # Backward pass (obliczenie pochodnej)
+    check_derivative = fcn(layer['activation_potential'], layer['output'], derivative=True)
+
+    print(f"=== FUNKCJA: {nazwa} ===")
+    print("Potencjał:    ", layer['activation_potential'])
+    print("Wyjście:      ", layer['output'])
+    print("Pochodna:     ", check_derivative)
+    print("-" * 40)
 
 
+'''
 # ======================== ZAD 3 ========================
 def plotPotentialActivation(activtion_potential, output, derivative = False):
     layer = {
         'ativation_potential': activation_potential,
         'output': None}
-    linear_log(layer)
+    linear(layer)
     return 0
     plt.figue
     plt.plot(layer['activation_potential'], linear(layer['activation_potential'], derivative = False))
@@ -92,7 +99,7 @@ class Activation_fcn:
     def output(self, layer, name, derivative=False):
         if name in self.functions:
             return self.functions[name](layer['activation_potential'], layer['output'], derivative)
-        else: 
+        else:
             sys.exit(f"Error: Activation function '{name}' not found.")
 
     # Identity
@@ -117,11 +124,11 @@ afcn.output(layer, 'linear')
 
 
 # ======================== ZAD 5 ========================
-def mse(self, expcted, output, derivative=False):
+def mse(self, np.expcted, output, derivative=False):
     if not derivative:
-        return 0.5 * np.power(expected - outputs, 2)
+        return 0.5 * np.power(np.expected - outputs, 2)
     else:
-        return -(expected - outputs)
+        return -(np.expected - outputs)
 
 class Loss_fcn:
     def __init__(self):
@@ -131,22 +138,22 @@ class Loss_fcn:
         }
 
     # Loss/error value calculated for all input data samples
-    def output(self, name, expected, outputs, derivative)
+    def output(self, name, np.expected, outputs, derivative)
         if name in self.functions:
-            return self.functions[name](expected, outputs, derivative)
+            return self.functions[name](np.expected, outputs, derivative)
         else:
             sys.exit(f"Error: Loss function '{name}' not found.")
 
     # Mean Square Error Loss funciton
-    def mse(self, name, expected, outputs, derivtive):
+    def mse(self, name, np.expected, outputs, derivtive):
         #if name in self.functions:
-        #    return self.functions[name](expected, outputs, derivative):
+        #    return self.functions[name](np.expected, outputs, derivative):
         #else:
         #   sys.exit(f"Error: Loss function '{name}' not found.")
 
     # Cross-entropy loss funciton
-    def binary_cross_entropy(self, name, expected, outputs, derivtive):
+    def binary_cross_entropy(self, name, np.expected, outputs, derivtive):
 
 
 # ======================== ZAD 6 ========================
-
+'''
