@@ -233,6 +233,23 @@ print("dzielenie = ", liczbunie.divide())
 class Morse_translator:
     def __init__(self, sequence = ''):
         self.sequence = sequence
+        self.MORSE_CODE_DICT = { 'a':'.-', 'b':'-...',
+                            'c':'-.-.', 'd':'-..', 'e':'.',
+                            'f':'..-.', 'g':'--.', 'h':'....',
+                            'i':'..', 'j':'.---', 'k':'-.-',
+                            'l':'.-..', 'm':'--', 'n':'-.',
+                            'o':'---', 'p':'.--.', 'q':'--.-',
+                            'r':'.-.', 's':'...', 't':'-',
+                            'u':'..-', 'v':'...-', 'w':'.--',
+                            'x':'-..-', 'y':'-.--', 'z':'--..',
+                            '1':'.----', '2':'..---', '3':'...--',
+                            '4':'....-', '5':'.....', '6':'-....',
+                            '7':'--...', '8':'---..', '9':'----.',
+                            '0':'-----', ', ':'--..--', '.':'.-.-.-',
+                            '?':'..--..', '/':'-..-.', '-':'-....-',
+                            '(':'-.--.', ')':'-.--.-'}
+    def __str__(self):
+        return self.sequence
 
     def set(self, sequence):
         self.sequence = sequence
@@ -243,11 +260,19 @@ class Morse_translator:
         self.sequence = re.sub(r'\d+', '', self.sequence)
         self.sequence = self.sequence.lower()
 
-    def translate(self)
-        self.sequence.only_small_letters()
+    def translate(self):
+        self.only_small_letters()
+        cipher = ''
+        for letter in self.sequence:
+            if letter != ' ':
+                cipher += self.MORSE_CODE_DICT[letter] + ' '
+            else:
+                cipher += ' '
+        print(cipher)
+        return cipher
 
 # ------- sprawdzenie ----------
-zdanie = Morse_translator('SkibiDIDI 123 hihI fajnie69 tLumaczy 6767 na morsa')
+zdanie = Morse_translator('SkibiDIDI 123hihI fajnie69 tLumaczy6767 na morsa')
+print("\n\nTo jest zdane zdanie:\n", zdanie, "\n")
 
-print(zdanie)
-print(zdanie.only_small_letters())
+zdanie.translate()
