@@ -1,0 +1,9 @@
+[
+  {
+    "adapter": "Debugpy",
+    "label": "Debug Current Python File",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "python": "$CWD/.venv/bin/python"
+  }
+]
