@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# give permission: 
+# give permission:
 # chmod +x python3_packages_install.sh
 # run the reinstall
 # ./python3_packages_install.sh
@@ -15,7 +15,7 @@ if [ ! -d "venv" ]; then
     python3 -m venv venv
 
     echo "Installing packages in venv..."
-    source venv/bin/activate
+    source venv/bin/activate # dla fisha jest source venv/bin/activate.fish
 
     # Explicitly activate pip from venv to avoid system warnings
     venv/bin/pip install --upgrade pip
